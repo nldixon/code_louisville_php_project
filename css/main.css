@@ -1,0 +1,22 @@
+body {
+    background-color: rgba(230, 0, 0, 1);
+    color: white;
+}
+
+header {
+    background-color: white;
+}
+
+img {
+    display: block;
+    margin: auto;
+    max-width: 40%;
+}
+
+select {
+  color: black;
+}
+
+.search {
+  color: black;
+}
