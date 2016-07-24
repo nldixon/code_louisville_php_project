@@ -11,8 +11,11 @@
 
 <?php
 
-include("inc/connection.php");
 include("inc/functions.php");
+
+$name = "";
+$race = "";
+$class = "";
 
 ?>
 
@@ -27,13 +30,13 @@ include("inc/functions.php");
                     <h3>Search by...</h3>
                     <table>
                         <tbody>
-                          <form>
+                          <form action="index.php" method="POST">
                             <tr>
                                 <th>
                                     Character Name:
                                 </th>
                                 <td>
-                                    <input type="text">
+                                    <input type="text" name="name">
                                 </td>
                             </tr>
                             <tr>
@@ -41,12 +44,17 @@ include("inc/functions.php");
                                     Character Race:
                                 </th>
                                 <td>
-                                    <select>
+                                    <select name="race">
                                       <option value="null"></option>
+                                      <option value="dborn">Dragonborn</option>
                                       <option value="dwarf">Dwarf</option>
                                       <option value="elf">Elf</option>
+                                      <option value="gnome">Gnome</option>
+                                      <option value="helf">Half-Elf</option>
                                       <option value="hling">Halfling</option>
+                                      <option value="horc">Half-Orc</option>
                                       <option value="human">Human</option>
+                                      <option value="tling">Tiefling</option>
                                     </select>
                                 </td>
                             </tr>
@@ -55,17 +63,24 @@ include("inc/functions.php");
                                     Character Class:
                                 </th>
                                 <td>
-                                    <select>
+                                    <select name="class">
                                       <option value="null"></option>
+                                      <option value="barb">Barbarian</option>
+                                      <option value="bard">Bard</option>
                                       <option value="cleric">Cleric</option>
                                       <option value="fighter">Fighter</option>
+                                      <option value="monk">Monk</option>
+                                      <option value="paladin">Paladin</option>
+                                      <option value="ranger">Ranger</option>
                                       <option value="rogue">Rogue</option>
+                                      <option value="sorc">Sorcerer</option>
+                                      <option value="warlock">Warlock</option>
                                       <option value="wizard">Wizard</option>
                                     </select>
                                 </td>
                             </tr>
                               <td class="search">
-                                <input type="submit">
+                                <input type="submit" name="search" value="Search">
                               </td>
                             </form>
                         </tbody>
@@ -73,15 +88,16 @@ include("inc/functions.php");
                 </div>
                 <div class="col-md-6">
                     <h3>Results...</h3>
-                    <div class="results-area">
+                    <div class="results-area" name="results-area">
                       <?php
-
+                        var_dump($results->fetchAll());
                       ?>
                     </div>
                 </div>
             </div>
         </div>
-
+        <footer>
+          <!-- Add contact information, links, etc. -->
+        </footer>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
-    <script src="js/script.js" type="text/javascript" charset="utf-8"></script>
     </body>

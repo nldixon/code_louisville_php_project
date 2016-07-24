@@ -3,7 +3,8 @@ body {
     color: white;
 }
 
-header {
+header, footer {
+text-align: center;
     background-color: white;
 }
 
