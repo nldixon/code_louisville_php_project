@@ -19,11 +19,20 @@ $race = null;
 $class = null;
 
 if (isset($_GET["getChar"])) {
+  $name = filter_input(INPUT_GET,"s",FILTER_SANITIZE_STRING);
+
   $race = $_GET["race"];
-  if ($race == "") {
-    $result = "Please select a race.";
+  $class = $_GET["class"];
+  $name = $_GET["s"];
+
+  if ($name !== "" && $class == null && $race == null) {
+    $result = $name . " was found!";
+  } else if ($name !== "" && $class !== null | $race !== null) {
+    $result = "Please search by character name <u><b>OR</b></u> by name and class.";
+  } else  if ($name == "" && $class !== "" | $race !== "") {
+    $result = "A " . $race. " " . $class . " was found!";
   } else {
-    $result = "A " . $race . " character was found!";
+    $result = "Please populate at least one field.";
   }
 }
 
@@ -48,8 +57,13 @@ if (isset($_GET["getChar"])) {
                                   <td>
                                     <input type="text" name="s" id="s">
                                   </td>
-                                </form>
                             </tr>
+                        </tbody>
+                      </table>
+                        <br>
+                        <p id="separator"> OR </p>
+                      <table>
+                        <tbody>
                             <tr>
                                 <th>
                                     Character Race:
@@ -75,9 +89,9 @@ if (isset($_GET["getChar"])) {
                                     Character Class:
                                 </th>
                                 <td>
-                                    <select name="class">
+                                    <select id="class" name="class">
                                       <option value=""></option>
-                                      <option value="barb">Barbarian</option>
+                                      <option value="barbarian">Barbarian</option>
                                       <option value="bard">Bard</option>
                                       <option value="cleric">Cleric</option>
                                       <option value="fighter">Fighter</option>
@@ -85,7 +99,7 @@ if (isset($_GET["getChar"])) {
                                       <option value="paladin">Paladin</option>
                                       <option value="ranger">Ranger</option>
                                       <option value="rogue">Rogue</option>
-                                      <option value="sorc">Sorcerer</option>
+                                      <option value="sorcerer">Sorcerer</option>
                                       <option value="warlock">Warlock</option>
                                       <option value="wizard">Wizard</option>
                                     </select>

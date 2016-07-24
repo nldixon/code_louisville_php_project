@@ -21,3 +21,8 @@ select, input {
 .search {
   color: black;
 }
+
+#separator {
+  font-size: 1.25em;
+  font-weight: 900;
+}
