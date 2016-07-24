@@ -14,9 +14,18 @@
 include("inc/functions.php");
 
 $pcs = all_pcs();
-// $name = "";
-// $race = "";
-// $class = "";
+$name = null;
+$race = null;
+$class = null;
+
+if (isset($_GET["getChar"])) {
+  $race = $_GET["race"];
+  if ($race == "") {
+    $result = "Please select a race.";
+  } else {
+    $result = "A " . $race . " character was found!";
+  }
+}
 
 ?>
 
@@ -46,18 +55,18 @@ $pcs = all_pcs();
                                     Character Race:
                                 </th>
                                 <td>
-                                    <select name="race">
-                                      <option value="null"></option>
-                                      <option value="dborn">Dragonborn</option>
+                                    <select id="race" name="race">
+                                      <option value=""></option>
+                                      <option value="dragonborn">Dragonborn</option>
                                       <option value="drow">Drow</option>
                                       <option value="dwarf">Dwarf</option>
                                       <option value="elf">Elf</option>
                                       <option value="gnome">Gnome</option>
-                                      <option value="helf">Half-Elf</option>
+                                      <option value="half-elf">Half-Elf</option>
                                       <option value="hling">Halfling</option>
-                                      <option value="horc">Half-Orc</option>
+                                      <option value="half-orc">Half-Orc</option>
                                       <option value="human">Human</option>
-                                      <option value="tling">Tiefling</option>
+                                      <option value="tiefling">Tiefling</option>
                                     </select>
                                 </td>
                             </tr>
@@ -67,7 +76,7 @@ $pcs = all_pcs();
                                 </th>
                                 <td>
                                     <select name="class">
-                                      <option value="null"></option>
+                                      <option value=""></option>
                                       <option value="barb">Barbarian</option>
                                       <option value="bard">Bard</option>
                                       <option value="cleric">Cleric</option>
@@ -83,7 +92,7 @@ $pcs = all_pcs();
                                 </td>
                             </tr>
                               <td class="search">
-                                <input type="submit" value="Search">
+                                <input type="submit" id="getChar" name="getChar" value="Search">
                               </td>
                         </tbody>
                     </table>
@@ -92,9 +101,11 @@ $pcs = all_pcs();
                 <div class="col-md-6">
                     <h3>Results...</h3>
                     <div class="results-area" name="results-area">
-                      <?php
-                        var_dump($pcs);
-                      ?>
+                      <p><?php
+                        echo $result;
+
+                        var_dump(all_pcs());
+                      ?></p>
                     </div>
                 </div>
             </div>
