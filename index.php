@@ -13,27 +13,35 @@
 
 include("inc/functions.php");
 
-$pcs = all_pcs();
 $name = null;
-$race = null;
+// $race = null;
 $class = null;
+$results = null;
+$chars = null;
+// $level = null;
 
 if (isset($_GET["getChar"])) {
   $name = filter_input(INPUT_GET,"s",FILTER_SANITIZE_STRING);
+  $class = filter_input(INPUT_GET,"class",FILTER_SANITIZE_STRING);
+  $race = filter_input(INPUT_GET,"race",FILTER_SANITIZE_STRING);
 
   $race = $_GET["race"];
   $class = $_GET["class"];
   $name = $_GET["s"];
 
-  if ($name !== "" && $class == null && $race == null) {
-    $result = $name . " was found!";
-  } else if ($name !== "" && $class !== null | $race !== null) {
-    $result = "Please search by character name <u><b>OR</b></u> by name and class.";
-  } else  if ($name == "" && $class !== "" | $race !== "") {
-    $result = "A " . $race. " " . $class . " was found!";
-  } else {
-    $result = "Please populate at least one field.";
-  }
+  if ($name !== "") {
+    $fresult = "Character named " . $name . " was found.";
+    $results = by_name($name);
+      } else if ($name == "" && $race !== "" && $class == "") {
+          $fresult = "<u>Found all " . $race . " characters.</u>";
+          $results = by_race($race);
+      } else if ($name == "" && $race == "" && $class !== "") {
+          $fresult = "<u>Found all " . $class . "s.</u>";
+          $results = by_class($class);
+      } else {
+          $fresult = "<u>Displaying all characters.</u>";
+          $results = all_chars($chars);
+      }
 }
 
 ?>
@@ -43,10 +51,14 @@ if (isset($_GET["getChar"])) {
             <img src="img/site-logo.png" alt="Site Logo" class="site-logo"></img>
         </header>
 
+        <div class="container info">
+          <h4>Populate a field to search for a specific character or leave blank to display all characters.</h4>
+        </div>
+
         <div class="container">
             <div class="row">
                 <div class="col-md-6">
-                    <h3>Search by...</h3>
+                    <h3><u>Search by:</u></h3>
                     <form method="GET" action="index.php">
                     <table>
                         <tbody>
@@ -58,12 +70,6 @@ if (isset($_GET["getChar"])) {
                                     <input type="text" name="s" id="s">
                                   </td>
                             </tr>
-                        </tbody>
-                      </table>
-                        <br>
-                        <p id="separator"> OR </p>
-                      <table>
-                        <tbody>
                             <tr>
                                 <th>
                                     Character Race:
@@ -77,7 +83,7 @@ if (isset($_GET["getChar"])) {
                                       <option value="elf">Elf</option>
                                       <option value="gnome">Gnome</option>
                                       <option value="half-elf">Half-Elf</option>
-                                      <option value="hling">Halfling</option>
+                                      <option value="halfling">Halfling</option>
                                       <option value="half-orc">Half-Orc</option>
                                       <option value="human">Human</option>
                                       <option value="tiefling">Tiefling</option>
@@ -106,6 +112,7 @@ if (isset($_GET["getChar"])) {
                                 </td>
                             </tr>
                               <td class="search">
+                                <br>
                                 <input type="submit" id="getChar" name="getChar" value="Search">
                               </td>
                         </tbody>
@@ -113,12 +120,27 @@ if (isset($_GET["getChar"])) {
                     </form>
                 </div>
                 <div class="col-md-6">
-                    <h3>Results...</h3>
+                    <h3><u>Results:<u></h3>
                     <div class="results-area" name="results-area">
                       <p><?php
-                        echo $result;
 
-                        var_dump(all_pcs());
+                        if ($results !== null) {
+                          if (is_array($results)) {
+                            echo $fresult . "<br>";
+                            // echo "Marker 1";
+                              foreach ($results as $dpcs) {
+                                echo getChar_results($dpcs);
+                              }
+                            // var_dump($results);
+                        } else if ($results == null | $results == "") {
+                          echo "No characters were found.";
+                          // echo "SOMETHING WENT WRONG";
+                          // foreach ($results as $display_pcs);
+                          // echo getChar_results($display_pcs);
+                          // var_dump(getChar_results($display_pcs));
+                        }
+                      }
+
                       ?></p>
                     </div>
                 </div>
@@ -127,5 +149,6 @@ if (isset($_GET["getChar"])) {
         <footer>
           <!-- Add contact information, links, etc. -->
         </footer>
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
     </body>
