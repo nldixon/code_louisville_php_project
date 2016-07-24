@@ -13,9 +13,10 @@
 
 include("inc/functions.php");
 
-$name = "";
-$race = "";
-$class = "";
+$pcs = all_pcs();
+// $name = "";
+// $race = "";
+// $class = "";
 
 ?>
 
@@ -28,16 +29,17 @@ $class = "";
             <div class="row">
                 <div class="col-md-6">
                     <h3>Search by...</h3>
+                    <form method="GET" action="index.php">
                     <table>
                         <tbody>
-                          <form action="index.php" method="POST">
                             <tr>
                                 <th>
                                     Character Name:
                                 </th>
-                                <td>
-                                    <input type="text" name="name">
-                                </td>
+                                  <td>
+                                    <input type="text" name="s" id="s">
+                                  </td>
+                                </form>
                             </tr>
                             <tr>
                                 <th>
@@ -47,6 +49,7 @@ $class = "";
                                     <select name="race">
                                       <option value="null"></option>
                                       <option value="dborn">Dragonborn</option>
+                                      <option value="drow">Drow</option>
                                       <option value="dwarf">Dwarf</option>
                                       <option value="elf">Elf</option>
                                       <option value="gnome">Gnome</option>
@@ -80,17 +83,17 @@ $class = "";
                                 </td>
                             </tr>
                               <td class="search">
-                                <input type="submit" name="search" value="Search">
+                                <input type="submit" value="Search">
                               </td>
-                            </form>
                         </tbody>
                     </table>
+                    </form>
                 </div>
                 <div class="col-md-6">
                     <h3>Results...</h3>
                     <div class="results-area" name="results-area">
                       <?php
-                        var_dump($results->fetchAll());
+                        var_dump($pcs);
                       ?>
                     </div>
                 </div>
