@@ -81,7 +81,6 @@ if (isset($_GET["getChar"])) {
                                       <option value="drow">Drow</option>
                                       <option value="dwarf">Dwarf</option>
                                       <option value="elf">Elf</option>
-                                      <option value="gnome">Gnome</option>
                                       <option value="half-elf">Half-Elf</option>
                                       <option value="halfling">Halfling</option>
                                       <option value="half-orc">Half-Orc</option>
